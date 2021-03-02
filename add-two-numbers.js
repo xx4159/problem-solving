@@ -34,38 +34,40 @@
  * @return {ListNode}
  */
 
-/**
- * l1 = [2,4,3], l2 = [5,6,4]
- * 1. reverseDigit 342, 465
- * 2. add 342 + 465 = 807
- * 3. reverse and to array [7,0,8]
- */
-
 function ListNode(val, next) {
   this.val = (val===undefined ? 0 : val)
   this.next = (next===undefined ? null : next)
 }
 
 const addTwoNumbers = function(l1, l2) {
-  let sum = new ListNode(0);
+  let carry = 0;
+  let head = null;
+  let current;
 
-  while (l1 !== null && l2 !== null) {
-    // sum
-    let carry = sum.val;
-    const add = carry + l1.val + l2.val;
-    sum.val = add % 10;
-    // carry
-    carry = Math.floor(add / 10);
-    sum.next = carry ? new ListNode(carry) : null;
+  while (l1 !== null || l2 !== null) {
+    let x = l1 ? l1.val : 0;
+    let y = l2 ? l2.val : 0;
+    let sum = carry + x + y;
+    let result = sum % 10;
+    carry = Math.floor(sum / 10);
 
-    l1 = l1.next || null;
-    l2 = l2.next || null;
-    if (sum.next !== null) {
-      sum = sum.next;
+    if (head === null) {
+      head = new ListNode(result);
+      current = head;
+    } else {
+      current.next = new ListNode(result);
+      current = current.next;
     }
+
+    if (l1) l1 = l1.next;
+    if (l2) l2 = l2.next;
   }
 
-  return sum;
+  if (carry > 0) {
+    current.next = new ListNode(carry);
+  }
+
+  return head;
 };
 
 module.exports = {
