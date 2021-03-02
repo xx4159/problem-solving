@@ -46,26 +46,29 @@ function ListNode(val, next) {
   this.next = (next===undefined ? null : next)
 }
 
-const reverse = function(list) {
-  const reversed = [];
-  for (let i = 0; i < list.length; i++) {
-    reversed.unshift(list[i]);
-  }
-  return reversed;
-}
-
-const reverseDigit = function(list) {
-  return Number(reverse(list).join(''));
-}
-
 const addTwoNumbers = function(l1, l2) {
-  const add = reverseDigit(l1) + reverseDigit(l2);
+  let sum = new ListNode(0);
 
-  return reverse(String(add).split('')).map(res => +res);
+  while (l1 !== null && l2 !== null) {
+    // sum
+    let carry = sum.val;
+    const add = carry + l1.val + l2.val;
+    sum.val = add % 10;
+    // carry
+    carry = Math.floor(add / 10);
+    sum.next = carry ? new ListNode(carry) : null;
+
+    l1 = l1.next || null;
+    l2 = l2.next || null;
+    if (sum.next !== null) {
+      sum = sum.next;
+    }
+  }
+
+  return sum;
 };
 
 module.exports = {
-  reverse,
-  reverseDigit,
+  ListNode,
   addTwoNumbers,
 };

@@ -1,40 +1,27 @@
-const { reverse, reverseDigit, addTwoNumbers } = require('./add-two-numbers');
+const { ListNode, addTwoNumbers } = require('./add-two-numbers');
 
-describe('addTowNumbers', () => {
-  test('reverseDigit', () => {
-    // arrange
-    const list = [5,6,4];
-    const expected = 465;
+test('3 더하기 4 는 7 이다', () => {
+  // arrange
+  const l1 = new ListNode(3);
+  const l2 = new ListNode(4);
 
-    // act
-    const actual = reverseDigit(list);
+  // act
+  const actual = addTwoNumbers(l1, l2);
+  const expected = new ListNode(7);
+  
+  // assert
+  expect(actual).toEqual(expected);
+});
 
-    // assert
-    expect(actual).toStrictEqual(expected);
-  });
+test('4 더하기 6 은 10 이다', () => {
+  // arrange
+  const l1 = new ListNode(4);
+  const l2 = new ListNode(6);
 
-  test('reverse array', () => {
-    // arange
-    const list = [1,2,3];
-    const expected = [3,2,1];
+  // act
+  const actual = addTwoNumbers(l1, l2).val;
+  const expected = new ListNode(0, new ListNode(1)).val;
 
-    // act
-    const actual = reverse(list);
-
-    // assert
-    expect(actual).toStrictEqual(expected);
-  })
-
-  test('add two numbers', () => {
-    // arrange
-    const list1 = [2,4,3];
-    const list2 = [5,6,4];
-    const expected = [7,0,8];
-
-    // act
-    const actual = addTwoNumbers(list1, list2);
-
-    // assert
-    expect(actual).toStrictEqual(expected);
-  });
+  // assert
+  expect(actual).toEqual(expected);
 });
